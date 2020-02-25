@@ -1,16 +1,13 @@
-import log from 'book';
-import Koa from 'koa';
-import tldjs from 'tldjs';
-import Debug from 'debug';
-import http from 'http';
-import { hri } from 'human-readable-ids';
-import Router from 'koa-router';
+const log = require('book');
+const Koa = require('koa');
+const tldjs = require('tldjs');
+const http = require('http');
+const hri = require('human-readable-ids').hri;
+const Router = require('koa-router');
 
-import ClientManager from './lib/ClientManager';
+const ClientManager = require('./lib/ClientManager');
 
-const debug = Debug('localtunnel:server');
-
-export default function(opt) {
+function start (opt) {
     opt = opt || {};
 
     const validHosts = (opt.domain) ? [opt.domain] : undefined;
@@ -66,7 +63,7 @@ export default function(opt) {
         const isNewClientRequest = ctx.query['new'] !== undefined;
         if (isNewClientRequest) {
             const reqId = hri.random();
-            debug('making new client with id %s', reqId);
+            console.log(`making new client with id ${reqId}`);
             const info = await manager.newClient(reqId);
 
             const url = schema + '://' + info.id + '.' + ctx.request.host;
@@ -104,7 +101,7 @@ export default function(opt) {
             return;
         }
 
-        debug('making new client with id %s', reqId);
+        console.log(`making new client with id ${reqId}`);
         const info = await manager.newClient(reqId);
 
         const url = schema + '://' + info.id + '.' + ctx.request.host;
@@ -127,6 +124,7 @@ export default function(opt) {
         }
 
         const clientId = GetClientIdFromHostname(hostname);
+        console.log(`ClientID: ${clientId}`);
         if (!clientId) {
             appCallback(req, res);
             return;
@@ -135,6 +133,7 @@ export default function(opt) {
         const client = manager.getClient(clientId);
         if (!client) {
             res.statusCode = 404;
+            console.log('hit 404 on id', clientId);
             res.end('404');
             return;
         }
@@ -150,6 +149,7 @@ export default function(opt) {
         }
 
         const clientId = GetClientIdFromHostname(hostname);
+        console.log('upgrade id', clientId);
         if (!clientId) {
             socket.destroy();
             return;
@@ -157,6 +157,7 @@ export default function(opt) {
 
         const client = manager.getClient(clientId);
         if (!client) {
+            console.log('destroy socket');
             socket.destroy();
             return;
         }
@@ -166,3 +167,5 @@ export default function(opt) {
 
     return server;
 };
+
+module.exports = start;

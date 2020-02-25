@@ -1,14 +1,7 @@
-#!/usr/bin/env node -r esm
+const optimist = require('optimist');
+const log = require('book');
 
-import 'localenv';
-import optimist from 'optimist';
-
-import log from 'book';
-import Debug from 'debug';
-
-import CreateServer from '../server';
-
-const debug = Debug('localtunnel');
+const CreateServer = require('../server');
 
 const argv = optimist
     .usage('Usage: $0 --port [num]')
@@ -63,6 +56,3 @@ process.on('uncaughtException', (err) => {
 process.on('unhandledRejection', (reason, promise) => {
     log.error(reason);
 });
-
-// vim: ft=javascript
-

@@ -63,7 +63,7 @@ function start (opt) {
         const isNewClientRequest = ctx.query['new'] !== undefined;
         if (isNewClientRequest) {
             const reqId = hri.random();
-            console.log(`making new client with id ${reqId}`);
+            console.log(`#1 making new client with id ${reqId}`);
             const info = await manager.newClient(reqId);
 
             const url = schema + '://' + info.id + '.' + ctx.request.host;
@@ -101,7 +101,7 @@ function start (opt) {
             return;
         }
 
-        console.log(`making new client with id ${reqId}`);
+        console.log(`#2 making new client with id ${reqId}`);
         const info = await manager.newClient(reqId);
 
         const url = schema + '://' + info.id + '.' + ctx.request.host;

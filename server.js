@@ -103,10 +103,10 @@ function start (opt) {
 
         console.log(`#2 making new client with id ${reqId}`);
         const info = await manager.newClient(reqId);
-
         const url = schema + '://' + info.id + '.' + ctx.request.host;
         info.url = url;
         ctx.body = info;
+        console.log(`new client info: ${info}`);
         return;
     });
 
@@ -124,7 +124,6 @@ function start (opt) {
         }
 
         const clientId = GetClientIdFromHostname(hostname);
-        console.log(`ClientID: ${clientId}`);
         if (!clientId) {
             appCallback(req, res);
             return;

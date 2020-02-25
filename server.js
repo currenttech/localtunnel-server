@@ -63,7 +63,7 @@ function start (opt) {
         const isNewClientRequest = ctx.query['new'] !== undefined;
         if (isNewClientRequest) {
             const reqId = hri.random();
-            console.log(`#1 making new client with id ${reqId}`);
+            // console.log(`#1 making new client with id ${reqId}`);
             const info = await manager.newClient(reqId);
 
             const url = schema + '://' + info.id + '.' + ctx.request.host;
@@ -101,12 +101,12 @@ function start (opt) {
             return;
         }
 
-        console.log(`#2 making new client with id ${reqId}`);
+        // console.log(`#2 making new client with id ${reqId}`);
         const info = await manager.newClient(reqId);
         const url = schema + '://' + info.id + '.' + ctx.request.host;
         info.url = url;
         ctx.body = info;
-        console.log(`new client info: ${JSON.stringify(info)}`);
+        // console.log(`new client info: ${JSON.stringify(info)}`);
         return;
     });
 
@@ -132,7 +132,7 @@ function start (opt) {
         const client = manager.getClient(clientId);
         if (!client) {
             res.statusCode = 404;
-            console.log('hit 404 on id', clientId);
+            // console.log('hit 404 on id', clientId);
             res.end('404');
             return;
         }
@@ -148,7 +148,7 @@ function start (opt) {
         }
 
         const clientId = GetClientIdFromHostname(hostname);
-        console.log('upgrade id', clientId);
+        // console.log('upgrade id', clientId);
         if (!clientId) {
             socket.destroy();
             return;
@@ -156,7 +156,7 @@ function start (opt) {
 
         const client = manager.getClient(clientId);
         if (!client) {
-            console.log('destroy socket');
+            // console.log('destroy socket');
             socket.destroy();
             return;
         }

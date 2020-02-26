@@ -12,7 +12,7 @@ function start (opt) {
 
     const validHosts = (opt.domain) ? [opt.domain] : undefined;
     const myTldjs = tldjs.fromUserSettings({ validHosts });
-    const landingPage = opt.landing || 'https://localtunnel.github.io/www/';
+    const landingPage = opt.landing || 'https://current.tech/';
 
     function GetClientIdFromHostname(hostname) {
         return myTldjs.getSubdomain(hostname);
@@ -45,6 +45,26 @@ function start (opt) {
         ctx.body = {
             connected_sockets: stats.connectedSockets,
         };
+    });
+
+    router.get('/api/destroy/:id', async (ctx, next) => {
+        const { id } = ctx.params;
+        const stats = manager.stats;
+        const exists = manager.hasClient(id);
+        if (exists) {
+            manager.removeClient(id);
+            ctx.body = {
+                tunnels: stats.tunnels,
+                success: true,
+                message: `tunnel with id: ${id} destroyed`
+            };
+        } else {
+            ctx.body = {
+                tunnels: stats.tunnels,
+                success: false,
+                message: 'No matching id found'
+            }
+        }
     });
 
     app.use(router.routes());

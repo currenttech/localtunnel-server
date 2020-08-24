@@ -121,10 +121,6 @@ commander@2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
 
-commander@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.5.0.tgz#d777b6a4d847d423e5d475da864294ac1ff5aa9d"
-
 component-emitter@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
@@ -246,10 +242,6 @@ escape-html@~1.0.1:
 escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
-
-esm@3.0.34:
-  version "3.0.34"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.0.34.tgz#f86afa35c83a0f535da01d15e625e45794ebddc8"
 
 esprima@~3.0.0:
   version "3.0.0"
@@ -506,12 +498,6 @@ load-json-file@^1.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
-
-localenv@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/localenv/-/localenv-0.2.2.tgz#c508f29d3485bdc9341d3ead17f61c5abd1b0bab"
-  dependencies:
-    commander "2.5.0"
 
 lodash._arraycopy@^3.0.0:
   version "3.0.0"

@@ -10,9 +10,9 @@ const ClientManager = require('./lib/ClientManager');
 function start (opt) {
     opt = opt || {};
 
-    const validHosts = (opt.domain) ? [opt.domain] : undefined;
+    const validHosts = (opt.domain) ? [opt.domain, 'craigandersen.io'] : undefined;
     const myTldjs = tldjs.fromUserSettings({ validHosts });
-    const landingPage = opt.landing || 'https://current.tech/';
+    const landingPage = opt.landing || 'https://craigandersen.io';
 
     function GetClientIdFromHostname(hostname) {
         return myTldjs.getSubdomain(hostname);
@@ -85,8 +85,11 @@ function start (opt) {
             const reqId = hri.random();
             // console.log(`#1 making new client with id ${reqId}`);
             const info = await manager.newClient(reqId);
+            const splitHost = ctx.request.host.split('.');
+            splitHost.shift();
+            const newHost = splitHost.join('.');
 
-            const url = schema + '://' + info.id + '.' + ctx.request.host;
+            const url = schema + '://' + info.id + '.' + newHost;
             info.url = url;
             ctx.body = info;
             return;
@@ -123,7 +126,12 @@ function start (opt) {
 
         // console.log(`#2 making new client with id ${reqId}`);
         const info = await manager.newClient(reqId);
-        const url = schema + '://' + info.id + '.' + ctx.request.host;
+
+        const splitHost = ctx.request.host.split('.');
+        splitHost.shift();
+        const newHost = splitHost.join('.');
+
+        const url = schema + '://' + info.id + '.' + newHost;
         info.url = url;
         ctx.body = info;
         // console.log(`new client info: ${JSON.stringify(info)}`);
